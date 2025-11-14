@@ -18,9 +18,15 @@
 		<script type="text/babel">
 			function Counter() {
 				const [counter, setCounter] = React.useState(0);
+
+				if ((counter) => 100) {
+					return <p> Maior que 20</p>;
+				}
 				return (
 					<div className="flex flex-col items-start gap-2 font-medium">
 						<p className="text-xl">Contador: {counter}</p>
+						<p> {counter > 10 ? 'Maior que 10' : 'Menor que 10'}</p>
+						{counter > 15 && <p>Maior que 15 </p>}
 						<div className="flex gap-4">
 							<button
 								className="bg-slate-300 text-black p-2"
