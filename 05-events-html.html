@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Modelo - Rocketseet - React.js</title>
+	</head>
+	<body>
+		<div
+			id="root"
+			class="bg-slate-950 text-wrap min-h-screen text-red-50"
+		></div>
+		<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+		<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+		<script type="text/babel">
+			function Alert01() {
+				function handleAlertClick(event) {
+					console.log(event);
+
+					alert('Uma mensagem de alerta!');
+				}
+
+				return (
+					<button
+						className="bg-slate-300 text-black p-3"
+						type="button"
+						onClick={handleAlertClick}
+					>
+						Mostrar alerta
+					</button>
+				);
+			}
+			function Alert02() {
+				function handleAlertClick(msg) {
+					console.log(event);
+
+					alert(msg);
+				}
+
+				return (
+					<button
+						className="bg-slate-300 text-black p-3"
+						type="button"
+						onClick={() => handleAlertClick('Uma mensagem de alerta!')}
+					>
+						Mostrar alerta com parâmetro
+					</button>
+				);
+			}
+
+			function Alert03() {
+				function handleAlertClick(event) {
+					alert(event.target.previousSibling.value);
+				}
+				function handleAlertChange(event) {
+					console.log(event.target.value);
+				}
+				return (
+					<div className="flex ">
+						<input
+							placeholder="Digite algo..."
+							className="bg-slate-500 text-black p-3"
+							type="text"
+							onChange={handleAlertChange}
+						/>
+						<button
+							onClick={handleAlertClick}
+							type="button"
+							className="bg-slate-300 text-black p-3"
+						>
+							Mostar alerta do campo de texto
+						</button>
+					</div>
+				);
+			}
+			function App() {
+				return (
+					<main className={`p-4 flex flex-col gap-4`}>
+						<Alert01 />
+						<Alert02 />
+						<Alert03 />
+					</main>
+				);
+			}
+			ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+		</script>
+	</body>
+</html>

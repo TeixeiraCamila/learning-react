@@ -6,12 +6,20 @@
 		<title>Modelo - Rocketseet - React.js</title>
 	</head>
 	<body>
-		<div id="root" class="bg-slate-950 text-wrap"></div>
+		<div
+			id="root"
+			class="bg-slate-950 text-wrap min-h-screen text-red-50"
+		></div>
 		<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 		<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-		<script type="text/babel"></script>
+		<script type="text/babel">
+			function App() {
+				return <main className={`p-4`}>...</main>;
+			}
+			ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+		</script>
 	</body>
 </html>
