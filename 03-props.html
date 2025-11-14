@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Modelo - Rocketseet - React.js</title>
+	</head>
+	<body class="bg-slate-950 text-white">
+		<div id="root"></div>
+
+		<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+		<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+		<script type="text/babel">
+			const buttonVariants = {
+				default: 'bg-slate-500',
+				primary: 'bg-slate-700',
+			};
+			function Button({ variant = 'default', className, children, ...props }) {
+				return (
+					<button
+						className={`
+            px-3 py-2 rounded cursor-pointer 
+            ${buttonVariants[variant]}  ${className}`}
+						{...props}
+					>
+						{children}
+					</button>
+				);
+			}
+
+			function App() {
+				return (
+					<main className="flex gap-2 p-4">
+						<Button type="button" className="mr-14" title="My Button">
+							Botão
+						</Button>
+						<Button type="button" variant="primary">
+							Botão
+						</Button>
+					</main>
+				);
+			}
+			ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+		</script>
+	</body>
+</html>
