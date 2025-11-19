@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modelo - Rocketseet - React.js</title>
+</head>
+
+<body>
+  <div id="root" class="bg-slate-950 text-wrap min-h-screen text-red-50"></div>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    const CounterContext = React.createContext();
+
+    function CounterProvider({ children }) {
+      const [savedCounts, setSavedCounts] = React.useState([]);
+
+      function saveCount(count) {
+        setSavedCounts((prev) => [...prev, count])
+      }
+      return (
+        <CounterContext.Provider
+          value={{ savedCounts, saveCount }}
+        >
+          {children}
+        </CounterContext.Provider>
+      )
+    }
+
+
+    function Counter() {
+      const [counter, setCounter] = React.useState(0);
+      const { saveCount } = React.useContext(CounterContext)
+      return (
+        <div className="flex flex-col items-start gap-2 font-medium mb-4">
+          <p className="text-xl">Contador: {counter}</p>
+          <div className="flex gap-4">
+            <button
+              className="bg-slate-300 text-black p-2"
+              type="button"
+              onClick={() => setCounter(10)}
+            >
+              Atualizar
+            </button>
+            <button
+              className="bg-slate-300 text-black p-2"
+              type="button"
+              onClick={() => setCounter((prevValue) => prevValue + 1)}
+            >
+              Incrementar
+            </button>
+            <button
+              className="bg-slate-300 text-black p-2"
+              type="button"
+              onClick={() => setCounter((prevValue) => prevValue - 1)}
+            >
+              Decrementar
+            </button>
+
+            <button className="bg-slate-300 text-black p-2"
+              type="button" onClick={() => saveCount(counter)}> Salvar</button>
+
+          </div>
+        </div>
+      );
+    }
+
+    function CounterList() {
+      const { savedCounts } = React.useContext(CounterContext)
+      return (
+        <div className="mt-4">
+          <h2 className="text-xl">Valores Salvos</h2>
+
+          <ul>
+            {savedCounts.map((value, index) =>
+              <li key={`item-$´{index}`}>{value}</li>
+            )}
+          </ul>
+        </div>
+      )
+    }
+    function App() {
+      return (
+        <main className={`p-4`}>
+          <CounterProvider>
+            <Counter />
+            <hr />
+            <CounterList />
+          </CounterProvider>
+        </main>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+
+</html>
