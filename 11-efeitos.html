@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modelo - Rocketseet - React.js</title>
+</head>
+
+<body>
+  <div id="root" class="bg-slate-950 text-wrap min-h-screen text-red-50"></div>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    function Counter() {
+      const [counter, setCounter] = React.useState(0);
+      const [name, setName] = React.useState(0);
+
+      React.useEffect(() => {
+        console.log('Component montado!');
+        return () => {
+          console.log('Componente desmontado!')
+        }
+      }, [])
+
+      React.useEffect(() => {
+        if (counter > 0) {
+          console.log(`Contador Atualizado: ${counter}`);
+        }
+      }, [counter])
+
+      React.useEffect(() => {
+        console.log('Component ou  nome atualizados!');
+      }, [counter, name])
+
+
+      return (
+        <div className="flex flex-col items-start gap-2 font-medium">
+          <div>
+            <label className="mr-3 ">Nome:</label>
+            <input className="bg-slate-300 text-black" onChange={(e) => setName(e.target.value)} />
+          </div>
+          <p className="text-xl">Contador: {counter}</p>
+          <div className="flex gap-4">
+            <button
+              className="bg-slate-300 text-black p-2"
+              type="button"
+              onClick={() => setCounter((prevValue) => prevValue + 1)}
+            >
+              Incrementar
+            </button>
+            <button
+              className="bg-slate-300 text-black p-2"
+              type="button"
+              onClick={() => setCounter((prevValue) => prevValue - 1)}
+            >
+              Decrementar
+            </button>
+            <button
+              className="bg-slate-300 text-black p-2"
+              type="button"
+              onClick={() => setCounter(10)}
+            >
+              Atualizar
+            </button>
+          </div>
+        </div>
+      );
+    }
+    function App() {
+
+      const [show, setShow] = React.useState(true)
+
+      return (
+        <main className={`p-4`}>
+          <button className="bg-slate-300 text-black p-2 mb-5" onClick={() => setShow(!show)}>Mostrar/Ocultar Contador</button>
+          {show && <Counter />}
+        </main>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+
+</html>
