@@ -86,7 +86,6 @@
       )
     }
 
-
     function Text({
       as = 'span',
       variant = 'default',
@@ -195,14 +194,13 @@
       );
     }
 
-    function Calculator({ className, children, ...props }) {
+    function useCalculator(params) {
 
       const [operation, setOperation] = React.useState('')
       const [result, setResult] = React.useState('')
       const { updateHistory } = React.useContext(CalculatorContext)
 
-      function handleInputClick(input) {
-
+      function doOperation(input) {
         if (input === '=') {
           const operationResult = eval(operation.replace(/,/g, '.'))
           const parsedResult = operationResult.toString().replace(/\./g, ',')
@@ -238,6 +236,21 @@
         }
 
         setOperation(`${operation}${input}`)
+      }
+
+      return {
+        operation,
+        result,
+        doOperation
+      };
+    }
+
+    function Calculator() {
+
+      const { operation, result, doOperation } = useCalculator()
+
+      function handleInputClick(input) {
+        doOperation(input)
       }
 
       return (
@@ -291,8 +304,6 @@
         </Card>
       );
     }
-
-
 
     function App() {
       return (
