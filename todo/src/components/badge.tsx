@@ -7,8 +7,8 @@ export const badgeTextVariants = cva('', {
   variants: {
     variant: {
       none: '',
-      primary: 'text-green-light',
-      secundary: 'text-pink-light',
+      primary: 'text-green-dark',
+      secundary: 'text-pink-dark',
     }
   },
   defaultVariants: {
@@ -20,8 +20,8 @@ export const badgeVariants = cva('inline-flex items-center justify-center rounde
   variants: {
     variant: {
       none: '',
-      primary: 'bg-green-dark',
-      secundary: 'bg-pink-dark',
+      primary: 'bg-green-light',
+      secundary: 'bg-pink-light',
     },
     size: {
       sm: 'px-2 py-0.5',

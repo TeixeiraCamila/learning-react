@@ -6,7 +6,7 @@ export const cardVariants = cva(`rounded-lg border border-solid border-gray-200 
   variants: {
     size: {
       none: '',
-      md: `p-5`
+      md: 'p-5'
     }
   },
   defaultVariants: {
