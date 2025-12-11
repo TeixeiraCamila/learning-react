@@ -19,13 +19,29 @@ export default function useTask() {
       { title: Task['title'] }
   ) {
     setTasks(
-      tasks.map((task) => task.id === id 
-      ? { ...task, state: TaskState.Created, ...payload } : task)
+      tasks.map((task) => task.id === id
+        ? { ...task, state: TaskState.Created, ...payload } : task)
+    )
+  }
+
+  function updatedTaskStatus(id: string, concluded: boolean) {
+    setTasks(
+      tasks.map((task) => task.id === id
+        ? { ...task, concluded }
+        : task)
+    )
+  }
+
+  function deleteTask (id: string) {
+    setTasks(
+      tasks.filter((task) => task.id !== id)
     )
   }
 
   return {
     prepareTask,
-    updateTask
+    updateTask,
+    updatedTaskStatus,
+    deleteTask
   }
 }

@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# Todo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação de lista de tarefas (Todo List) construída com React, TypeScript e Vite.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** - Biblioteca para construção de interfaces
+- **TypeScript** - Superset JavaScript com tipagem estática
+- **Vite** - Build tool e dev server
+- **Tailwind CSS 4** - Framework CSS utility-first
+- **React Router 7** - Roteamento para React
+- **SWC** - Compilador rápido para JavaScript/TypeScript
 
-## React Compiler
+## 📦 Dependências Principais
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- `react` e `react-dom` - Core do React
+- `tailwindcss` - Estilização
+- `react-router` - Navegação entre páginas
+- `class-variance-authority` - Gerenciamento de variantes de classes CSS
+- `use-local-storage` - Hook para persistência local
 
-## Expanding the ESLint configuration
+## 🛠️ Instalação
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Instalar dependências
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🏃 Executando o Projeto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Modo desenvolvimento
+npm run dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build para produção
+npm run build
+
+# Preview da build de produção
+npm run preview
+
+# Lint do código
+npm run lint
 ```
+
+## 📁 Estrutura do Projeto
+
+O projeto utiliza Vite com React e TypeScript, configurado com:
+- ESLint para linting
+- SWC para Fast Refresh
+- Tailwind CSS para estilização
+- Suporte a SVG como componentes React
+
+## 🔧 Scripts Disponíveis
+
+- `dev` - Inicia o servidor de desenvolvimento
+- `build` - Compila o TypeScript e cria build de produção
+- `lint` - Executa o ESLint no projeto
+- `preview` - Visualiza a build de produção localmente
+
+## 📝 Licença
+
+Projeto privado.
