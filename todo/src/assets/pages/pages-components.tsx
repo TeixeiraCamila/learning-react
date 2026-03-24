@@ -42,13 +42,16 @@ export default function PageComponents() {
         </div>
         <div>
           <Button icon={PlusIcon}>Nova Tarefa</Button>
-
+          <Button icon={PlusIcon} handling>
+            Criando Tarefa
+          </Button>
         </div>
         <div className="flex gap-2">
           <ButtonIcon icon={TrashIcon} />
           <ButtonIcon icon={TrashIcon} variant={"secundary"} />
           <ButtonIcon icon={TrashIcon} variant={"tertiary"} />
           <ButtonIcon icon={TrashIcon} loading />
+          <ButtonIcon icon={TrashIcon} handling />
         </div>
         <div>
           <Card size={'md'}>
