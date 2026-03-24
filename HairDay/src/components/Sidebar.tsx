@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react'
 import Text from './Text'
+import { TimeButton } from './Button'
 import { useAppointment, type Appointment } from '../core/hooks/useAppointment'
 
 interface PeriodOption {
@@ -21,7 +22,7 @@ export default function Sidebar() {
   const [selectedPeriod, setSelectedPeriod] = useState<Appointment['period'] | null>(null)
   const [clientName, setClientName] = useState('')
   
-  const { createAppointment } = useAppointment()
+  const { createAppointment, isTimeAvailable } = useAppointment()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -77,23 +78,19 @@ export default function Sidebar() {
                 <span className="text-sm font-medium">{period.label}</span>
               </div>
               <div className="flex flex-wrap gap-2">
-                {period.hours.map((hour) => (
-                  <button
-                    key={hour}
-                    type="button"
-                    onClick={() => {
-                      setSelectedTime(hour)
-                      setSelectedPeriod(period.key)
-                    }}
-                    className={`px-3 py-2 rounded-lg text-sm transition-colors ${
-                      selectedTime === hour && selectedPeriod === period.key
-                        ? 'bg-orange-500 text-white'
-                        : 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500'
-                    }`}
-                  >
-                    {hour}
-                  </button>
-                ))}
+                {period.hours.map((hour) => {
+                  const isAvailable = isTimeAvailable(selectedDate, hour, period.key)
+                  return (
+                    <TimeButton
+                      key={hour}
+                      variant={selectedTime === hour ? 'selected' : 'default'}
+                      disabled={!isAvailable}
+                      onClick={() => isAvailable && setSelectedTime(hour)}
+                    >
+                      {hour}
+                    </TimeButton>
+                  )
+                })}
               </div>
             </div>
           ))}

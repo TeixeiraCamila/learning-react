@@ -51,10 +51,19 @@ export function useAppointment() {
     return appointments.filter(a => a.date === date)
   }, [appointments])
 
+  const isTimeAvailable = useCallback((date: string, time: string, period: Appointment['period']) => {
+    return !appointments.some(a => 
+      a.date === date && 
+      a.time === time && 
+      a.period === period
+    )
+  }, [appointments])
+
   return {
     appointments,
     createAppointment,
     removeAppointment,
-    getAppointmentsByDate
+    getAppointmentsByDate,
+    isTimeAvailable
   }
 }
