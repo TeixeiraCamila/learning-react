@@ -5,8 +5,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500',
-        selected: 'bg-orange-500 text-white border-transparent',
+        default: 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500 cursor-pointer',
+        selected: 'bg-orange-500 text-yellow border border-yellow hover:bg-orange-600',
         unavailable: 'bg-gray-700 text-gray-500 border border-gray-600 cursor-not-allowed opacity-50',
       },
     },
