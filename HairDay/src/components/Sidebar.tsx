@@ -2,24 +2,32 @@ import { useState, FormEvent } from 'react'
 import Text from './Text'
 import { TimeButton } from './Button'
 import { useAppointment, type Appointment } from '../core/hooks/useAppointment'
+import UserIcon from '../assets/icons/User-Icon.svg?react'
+import CalendarIcon from '../assets/icons/Calendar-Icon.svg?react'
 
 interface PeriodOption {
   key: Appointment['period']
   label: string
-  icon: string
+  
   hours: string[]
 }
 
 const periods: PeriodOption[] = [
-  { key: 'morning', label: 'Manhã', icon: '☀️', hours: ['09:00', '10:00', '11:00', '12:00'] },
-  { key: 'afternoon', label: 'Tarde', icon: '🌤️', hours: ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00'] },
-  { key: 'evening', label: 'Noite', icon: '🌙', hours: ['19:00', '20:00', '21:00'] },
+  { key: 'morning', label: 'Manhã', hours: ['09:00', '10:00', '11:00', '12:00'] },
+  { key: 'afternoon', label: 'Tarde',  hours: ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00'] },
+  { key: 'evening', label: 'Noite', hours: ['19:00', '20:00', '21:00'] },
 ]
+
+const getPeriodFromTime = (time: string): Appointment['period'] => {
+  const hour = parseInt(time.split(':')[0])
+  if (hour >= 9 && hour <= 12) return 'morning'
+  if (hour >= 13 && hour <= 18) return 'afternoon'
+  return 'evening'
+}
 
 export default function Sidebar() {
   const [selectedDate, setSelectedDate] = useState('')
   const [selectedTime, setSelectedTime] = useState('')
-  const [selectedPeriod, setSelectedPeriod] = useState<Appointment['period'] | null>(null)
   const [clientName, setClientName] = useState('')
   
   const { createAppointment, isTimeAvailable } = useAppointment()
@@ -27,21 +35,22 @@ export default function Sidebar() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     
-    if (!selectedDate || !selectedTime || !selectedPeriod || !clientName) {
+    if (!selectedDate || !selectedTime || !clientName) {
       alert('Por favor, preencha todos os campos')
       return
     }
 
+    const period = getPeriodFromTime(selectedTime)
+
     createAppointment({
       date: selectedDate,
       time: selectedTime,
-      period: selectedPeriod,
+      period,
       clientName
     })
 
     setSelectedDate('')
     setSelectedTime('')
-    setSelectedPeriod(null)
     setClientName('')
   }
 
@@ -58,7 +67,7 @@ export default function Sidebar() {
         <div className="space-y-2">
           <label className="text-gray-300 text-sm">Data</label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">📅</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><CalendarIcon/></span>
             <input
               type="date"
               value={selectedDate}
@@ -74,12 +83,12 @@ export default function Sidebar() {
           {periods.map((period) => (
             <div key={period.key} className="space-y-2">
               <div className="flex items-center gap-2 text-gray-300">
-                <span>{period.icon}</span>
+              
                 <span className="text-sm font-medium">{period.label}</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {period.hours.map((hour) => {
-                  const isAvailable = isTimeAvailable(selectedDate, hour, period.key)
+                  const isAvailable = selectedDate ? isTimeAvailable(selectedDate, hour, period.key) : true
                   return (
                     <TimeButton
                       key={hour}
@@ -99,7 +108,7 @@ export default function Sidebar() {
         <div className="space-y-2">
           <label className="text-gray-300 text-sm">Cliente</label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">👤</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><UserIcon/></span>
             <input
               type="text"
               value={clientName}
@@ -112,7 +121,7 @@ export default function Sidebar() {
 
         <button
           type="submit"
-          className="w-full bg-orange-500 text-white py-3 rounded-lg font-medium hover:bg-orange-600 transition-colors"
+          className="w-full bg-yellow text-white py-3 rounded-lg font-medium hover:bg-orange-600 transition-colors uppercase disabled:bg-gray-500 disabled:cursor-not-allowed"
         >
           Agendar
         </button>
