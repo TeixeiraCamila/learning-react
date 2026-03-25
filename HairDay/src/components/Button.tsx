@@ -8,6 +8,7 @@ const buttonVariants = cva(
         default: 'bg-gray-600 text-gray-300 border border-gray-500 hover:bg-gray-500 cursor-pointer',
         selected: 'bg-orange-500 text-yellow border border-yellow hover:bg-orange-600',
         unavailable: 'bg-gray-700 text-gray-500 border border-gray-600 cursor-not-allowed opacity-50',
+        danger: 'bg-red-600 text-white border border-red-500 hover:bg-red-700 cursor-pointer',
       },
     },
     defaultVariants: {

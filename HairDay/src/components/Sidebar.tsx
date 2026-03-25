@@ -29,14 +29,21 @@ export default function Sidebar() {
   const [selectedDate, setSelectedDate] = useState('')
   const [selectedTime, setSelectedTime] = useState('')
   const [clientName, setClientName] = useState('')
+  const [triedSubmit, setTriedSubmit] = useState(false)
   
+  const isFormValid = selectedDate && selectedTime && clientName
+  
+  const dateError = triedSubmit && !selectedDate
+  const timeError = triedSubmit && !selectedTime
+  const clientError = triedSubmit && !clientName
+
   const { createAppointment, isTimeAvailable } = useAppointment()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     
     if (!selectedDate || !selectedTime || !clientName) {
-      alert('Por favor, preencha todos os campos')
+      setTriedSubmit(true)
       return
     }
 
@@ -58,6 +65,7 @@ export default function Sidebar() {
     setSelectedDate('')
     setSelectedTime('')
     setClientName('')
+    setTriedSubmit(false)
   }
 
   return (
@@ -71,21 +79,27 @@ export default function Sidebar() {
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-6">
         <div className="space-y-2">
-          <label className="text-gray-300 text-sm">Data</label>
+          <div className="flex items-center justify-between">
+            <label className="text-gray-300 text-sm">Data</label>
+            {dateError && <span className="text-red-500 text-xs">Selecione uma data</span>}
+          </div>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><CalendarIcon/></span>
             <input
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-full bg-gray-600 border border-gray-500 rounded-lg px-10 py-3 text-gray-100 placeholder-gray-400 outline-none focus:border-orange-500"
+              className={`w-full bg-gray-600 rounded-lg px-10 py-3 text-gray-100 placeholder-gray-400 outline-none focus:border-orange-500 ${dateError ? 'border-2 border-red-500' : 'border border-gray-500'}`}
               placeholder="Selecione uma data"
             />
           </div>
         </div>
 
         <div className="space-y-4">
-          <label className="text-gray-300 text-sm">Horário</label>
+          <div className="flex items-center justify-between">
+            <label className="text-gray-300 text-sm">Horário</label>
+            {timeError && <span className="text-red-500 text-xs">Selecione um horário</span>}
+          </div>
           {periods.map((period) => (
             <div key={period.key} className="space-y-2">
               <div className="flex items-center gap-2 text-gray-300">
@@ -112,14 +126,17 @@ export default function Sidebar() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-gray-300 text-sm">Cliente</label>
+          <div className="flex items-center justify-between">
+            <label className="text-gray-300 text-sm">Cliente</label>
+            {clientError && <span className="text-red-500 text-xs">Digite o nome do cliente</span>}
+          </div>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><UserIcon/></span>
             <input
               type="text"
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
-              className="w-full bg-gray-600 border border-gray-500 rounded-lg px-10 py-3 text-gray-100 placeholder-gray-400 outline-none focus:border-orange-500"
+              className={`w-full bg-gray-600 rounded-lg px-10 py-3 text-gray-100 placeholder-gray-400 outline-none focus:border-orange-500 ${clientError ? 'border-2 border-red-500' : 'border border-gray-500'}`}
               placeholder="Digite o nome do cliente"
             />
           </div>
@@ -127,6 +144,7 @@ export default function Sidebar() {
 
         <button
           type="submit"
+          disabled={!isFormValid}
           className="w-full bg-yellow text-white py-3 rounded-lg font-medium hover:bg-orange-600 transition-colors uppercase disabled:bg-gray-500 disabled:cursor-not-allowed"
         >
           Agendar
