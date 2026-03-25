@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Modelo - Rocketseet - React.js</title>
+	</head>
+	<body>
+		<div
+			id="root"
+			class="bg-slate-950 text-wrap min-h-screen text-red-50"
+		></div>
+		<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+		<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+		<script type="text/babel">
+			function Counter() {
+				const [counter, setCounter] = React.useState(0);
+
+				if ((counter) => 100) {
+					return <p> Maior que 20</p>;
+				}
+				return (
+					<div className="flex flex-col items-start gap-2 font-medium">
+						<p className="text-xl">Contador: {counter}</p>
+						<p> {counter > 10 ? 'Maior que 10' : 'Menor que 10'}</p>
+						{counter > 15 && <p>Maior que 15 </p>}
+						<div className="flex gap-4">
+							<button
+								className="bg-slate-300 text-black p-2"
+								type="button"
+								onClick={() => setCounter((prevValue) => prevValue + 1)}
+							>
+								Incrementar
+							</button>
+							<button
+								className="bg-slate-300 text-black p-2"
+								type="button"
+								onClick={() => setCounter((prevValue) => prevValue - 1)}
+							>
+								Decrementar
+							</button>
+						</div>
+					</div>
+				);
+			}
+			function App() {
+				return (
+					<main className={`p-4`}>
+						<Counter />
+					</main>
+				);
+			}
+			ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+		</script>
+	</body>
+</html>
