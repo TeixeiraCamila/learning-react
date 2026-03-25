@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useAppointment, formatDateToBR } from '../../core/hooks/useAppointment'
 
 interface DateSelectProps {
@@ -6,8 +7,11 @@ interface DateSelectProps {
 }
 
 export default function DateSelect({ value, onChange }: DateSelectProps) {
-  const { getUniqueDates } = useAppointment()
-  const uniqueDates = getUniqueDates()
+  const { appointments } = useAppointment()
+  const uniqueDates = useMemo(() => {
+    const dates = [...new Set(appointments.map(a => a.date))]
+    return dates.sort((a, b) => b.localeCompare(a))
+  }, [appointments])
 
   return (
     <div className="relative">

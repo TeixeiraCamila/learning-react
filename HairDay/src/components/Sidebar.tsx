@@ -40,6 +40,12 @@ export default function Sidebar() {
       return
     }
 
+    const today = new Date().toISOString().split('T')[0]
+    if (selectedDate < today) {
+      alert('Não é possível agendar em datas passadas')
+      return
+    }
+
     const period = getPeriodFromTime(selectedTime)
 
     createAppointment({

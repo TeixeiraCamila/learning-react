@@ -40,7 +40,7 @@ export default function ComponentsPage() {
         <p className="text-gray-400 text-sm">Componente de texto com variantes</p>
         <div className="flex flex-wrap gap-4 p-6 bg-gray-800 rounded-lg">
           {textVariants.map((variant) => (
-            <div key={variant} className="space-y-2">
+            <div key={variant} className="space-y-2 flex flex-col items-start">
               <Text variant={variant}>Exemplo</Text>
               <code className="text-xs text-gray-500">{variant}</code>
             </div>

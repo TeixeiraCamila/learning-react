@@ -12,8 +12,13 @@ export interface Appointment {
 const STORAGE_KEY = 'hairday_appointments'
 
 const getAppointmentsFromStorage = (): Appointment[] => {
-  const data = localStorage.getItem(STORAGE_KEY)
-  return data ? JSON.parse(data) : []
+  try {
+    const data = localStorage.getItem(STORAGE_KEY)
+    return data ? JSON.parse(data) : []
+  } catch {
+    console.error('Failed to parse appointments from localStorage')
+    return []
+  }
 }
 
 const saveAppointmentsToStorage = (appointments: Appointment[]) => {
@@ -68,7 +73,7 @@ export function AppointmentProvider({ children }: { children: ReactNode }) {
 
   const getUniqueDates = useCallback(() => {
     const dates = [...new Set(appointments.map(a => a.date))]
-    return dates.sort().reverse()
+    return dates.sort((a, b) => b.localeCompare(a))
   }, [appointments])
 
   return (
