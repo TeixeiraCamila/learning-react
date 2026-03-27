@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Referências - Rocketseet - React.js</title>
+  </head>
+  <body>
+    <div
+      id="root"
+      class="bg-slate-950 text-wrap min-h-screen text-red-50"
+    ></div>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      function InputFocus() {
+        const inputRef = React.useRef(null)
+
+        function handleClick() {
+          inputRef.current?.focus()
+        }
+
+        return (
+          <div className="space-x-2">
+            <input
+              ref={inputRef}
+              placeholder="Clique no botão para focar"
+              className="p-2 border"
+            />
+            <button onClick={handleClick} className="p-2 border cursor-pointer">
+              Focar no input
+            </button>
+          </div>
+        )
+      }
+
+      function ScrollTracker() {
+        const containerRef = React.useRef(null)
+        const [scrollInfo, setScrollInfo] = React.useState({
+          scrollTop: 0,
+          scrollHeight: 0,
+          clientHeight: 0,
+        })
+        const [scrollPercentage, setScrollPercentage] = React.useState(0)
+
+        function handleScroll() {
+          const container = containerRef.current
+          if (!container) {
+            return
+          }
+          const { scrollTop, scrollHeight, clientHeight } = container
+          const maxScroll = scrollHeight - clientHeight
+          const percentage = Math.round((scrollTop / maxScroll) * 100)
+          setScrollInfo({ scrollTop, scrollHeight, clientHeight })
+          setScrollPercentage(percentage)
+        }
+        return (
+          <div className="space-y-4">
+            <div
+              className="border border-solid border-slate-300 p-4 h-60 overflow-y-auto"
+              ref={containerRef}
+              onScroll={handleScroll}
+            >
+              <div className="space-y-4">
+                {Array.from({ length: 754 }, (_, i) => (
+                  <p key={i} className="p-2 bg-gray-100 rounded text-gray-900">
+                    Item {i + 1}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <ul className="space-y-3 list-disc pl-5">
+              <li>Progresso do scroll: {scrollPercentage}%</li>
+              <li>ScrolTop: {scrollInfo.scrollTop}</li>
+              <li>ScrollHeight: {scrollInfo.scrollHeight}</li>
+              <li>ClientHeight: {scrollInfo.clientHeight}</li>
+            </ul>
+          </div>
+        )
+      }
+      function App() {
+        return (
+          <main className={`p-4 gap-5 flex flex-col`}>
+            <InputFocus />
+            <ScrollTracker />
+          </main>
+        )
+      }
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+    </script>
+  </body>
+</html>
