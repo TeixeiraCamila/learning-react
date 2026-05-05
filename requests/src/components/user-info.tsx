@@ -3,7 +3,7 @@ import useUser from '../hooks/use-user'
 export default function UserInfo() {
   const { user, userRequestStatus, getUser } = useUser()
 
-  React.useEffect(() => {
+React.useEffect(() => {
     getUser('gus')
   }, [getUser])
 
@@ -13,7 +13,7 @@ export default function UserInfo() {
 
   return (
     <ul>
-      <li>Username(id): {user?.id}</li>
+      <li>Username: {user?.username}</li>
       <li>Nome:{user?.name} </li>
     </ul>
   )

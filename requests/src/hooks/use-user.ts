@@ -12,9 +12,9 @@ export default function useUser() {
     try {
       setRequestStatus('loading')
 
-      const data = await fetcher(`/users/${username}`)
+      const data = await fetcher(`/users?username=${username}`)
 
-      setUser(data)
+      setUser(data[0] || null)
     } catch (e) {
       console.error(e)
       alert('Erro ao buscar usuário')
@@ -26,7 +26,11 @@ export default function useUser() {
   async function createUser(payload: User) {
     try {
       setRequestStatus('saving')
-      await api('/users', { method: 'POST', body: JSON.stringify(payload) })
+      await api('/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
       alert('Usuário criado com sucesso!')
     } catch (error) {
       console.error(error)

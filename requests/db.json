@@ -1,20 +1,35 @@
 {
   "users": [
     {
-      "id": "gus",
+      "id": "01",
+      "username": "gus",
       "name": "Gustavo"
     },
     {
-      "id": "hele",
+      "id": "02",
+      "username": "hele",
       "name": "Helena"
     },
     {
-      "id": "tony",
+      "id": "03",
+      "username": "tony",
       "name": "antonio"
     },
     {
-      "id": "foo",
+      "id": "04",
+      "username": "foo",
       "name": "Foo Bar"
+    },
+    {
+      "username": "toni",
+      "name": "antonio",
+      "id": "xCtgaRdMly8"
+    },
+    {
+      "username": "Cami",
+      "name": "Camila",
+      "id": "Fa3uw3a3WoI"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
